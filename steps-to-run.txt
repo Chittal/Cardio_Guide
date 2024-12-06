@@ -1,0 +1,14 @@
+1. Install Python
+2. Open Terminal
+3. Create virtual environment
+>>> python -m venv venv
+4. Activate virtual environment
+>>> venv\Scripts\activate
+5. Navigate to project folder
+>>> cd Heart-Disease-Prediction-main
+6. Upgrade pip
+>>> python.exe -m pip install --upgrade pip
+7. Install python package
+>>> pip install -r requirements.txt
+This is the command to deactivate venv (Don't execute now)
+>>>deactivate

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <title>Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+  <div class="container1">
+    <h2 class='header'><span class="headder_font">CardioGuide</span></h2>
+    <!-- <div class='description'>
+      <p>A Machine Learning Web Application built with Flask, which predicts the chances of having heart disease or not!</p><br>
+    </div> -->
+  </div>
+
+  <div class="results">
+    {% if prediction == 1 %}
+      <h1><span class='danger' id="danger">Oops! YOU HAVE CHANCES OF HEART DISEASE.<br></span></h1>
+      <br>
+      <iframe src="https://giphy.com/embed/l3vR5kvzODSuw3bnq" width="480" height="320" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+      <p class="card">Please contact nearest hospitals</p>
+      <form id="downloadForm" action="{{ url_for('download_report') }}" method="POST">
+        <input type="hidden" name="age" value="{{ age }}">
+        <input type="hidden" name="sex" value="{{ sex }}">
+        <input type="hidden" name="cp" value="{{ cp }}">
+        <input type="hidden" name="trestbps" value="{{ trestbps }}">
+        <input type="hidden" name="chol" value="{{ chol }}">
+        <input type="hidden" name="fbs" value="{{ fbs }}">
+        <input type="hidden" name="restecg" value="{{ restecg }}">
+        <input type="hidden" name="thalach" value="{{ thalach }}">
+        <input type="hidden" name="exang" value="{{ exang }}">
+        <input type="hidden" name="oldpeak" value="{{ oldpeak }}">
+        <input type="hidden" name="slope" value="{{ slope }}">
+        <input type="hidden" name="ca" value="{{ ca }}">
+        <input type="hidden" name="thal" value="{{ thal }}">
+        <input type="hidden" name="probability" value="{{ probability }}">
+      </form>
+      <!-- Buttons for Download Report and Find Doctors -->
+      <div class="buttons">
+        <button type="button" onclick="submitForm('download_report');" class="button">Download Report</button>
+        <button type="button" onclick="submitForm('find_doctors');" class="button">Find Doctors</button>
+      </div>
+    {% elif prediction == 0 %}
+      <h1><span class='safe' id="safe" >Congratulations!<br><br></span></h1>
+      <h1>YOU DON'T HAVE HEART DISEASE.</h1>
+      <iframe src="https://giphy.com/embed/dXcYUrKTb5ZwK7D7dB" width="280" height="280" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    {% endif %}
+  </div>
+
+  <!-- Footer -->
+  <div class='footer'>
+    <div class="contact">
+      <a target="_blank" href="https://github.com/Aniket11007">
+        <i class="fa fa-github contact-icon" style="font-size:24px"></i>
+      </a>
+      <a target="_blank" href="https://www.linkedin.com/in/aniket-jha-791346217/">
+        <i class="fa fa-linkedin contact-icon" style="font-size:24px"></i>
+      </a>
+    </div>
+    <!-- <p class='footer-description'>Made by Aniket Jha.</p> -->
+  </div>  
+
+  <style>
+    .card {
+      color: black;
+      margin: 0;
+      font-weight: bold;
+      font-size: 25px;
+    }
+
+    .header {
+      margin: 0;
+    }
+
+    .headder_font {
+      color: #7DF9FF;
+      font-size: 35px;
+      font-weight: normal;
+    }
+
+    .description p {
+      color: #7DF9FF;
+      font-size: 20px;
+      padding-top: 10px;
+      margin: -5px 0 0;
+    }
+
+    .container1 {
+      padding: 30px;
+      position: relative;
+      background: linear-gradient(45deg, #0F2027, #203A43, #2C5364);
+      background-size: 500% 500%;
+      animation: change-gradient 10s ease-in-out infinite;
+    }
+
+    @keyframes change-gradient {
+      0% {
+        background-position: 0 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0 50%;
+      }
+    }
+
+    .contact-icon {
+      color: #ffffff;
+      padding: 7px;
+    }
+
+    .footer {
+      flex-shrink: 0;
+      position: relative;
+      padding: 20px;
+      background: linear-gradient(45deg, #0F2027, #203A43, #2C5364);
+      background-size: 500% 500%;
+      animation: change-gradient 10s ease-in-out infinite;
+    }
+
+    .footer-description {
+      color: #7DF9FF;
+      margin: 0;
+      font-size: 12px;
+    }
+
+    body {
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      overflow-x: hidden;
+    }
+
+    #danger {
+      color: red;
+    }
+
+    #safe {
+      color: green;
+    }
+
+    /* Buttons Styling */
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      margin: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+  <script>
+    function submitForm(endpoint) {
+        // Update the form's action based on which button was clicked
+        const form = document.getElementById('downloadForm');
+        if (endpoint === 'download_report') {
+            form.action = "{{ url_for('download_report') }}";
+        } else if (endpoint === 'find_doctors') {
+            form.action = "{{ url_for('find_doctor') }}";
+        }
+        // Submit the form
+        form.submit();
+    }
+  </script>
+
+</body>
+</html>
