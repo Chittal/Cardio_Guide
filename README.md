@@ -2,90 +2,48 @@
 
 ## About
 
-The objective of this project is to detect whether the person has any chances  of  heart disease or
-not by giving number of features to patients with having maximum accuracy of above 97%. By
-Using Machine learning algorithms and deep learning are applied to compare the results and
-analysis of the UCI Machine Learning Heart Disease dataset. 
-## DEMO -: 
-:point_right: https://med-x-webapp.herokuapp.com/
-## Accuracy of the Models and Algorithms Used
+This project is to help user in predicting if they have heart disease or not. If they have heart disease, they can download report and see recommended doctors. The recommendation is based on doctors who treated patients with similar health conditions in user close proximity.
+This project is developed using Flask.
 
-| Sr no    | Algorithm Used | Accuracy     |
-| :---        |    :----:   |          ---: |
-| 1     | K - Nearest Neighbor      | 97.82%   |
-| 2   | Random Forest       | 86.95 %   |
-| 3 | Ada Boost With Random Forest | 93.47 %|
-| 4 | Gradient Boosting | 89.91% |
-
-## 👩‍💻 Technology Used
-
-#### **Tools**
-
-<img alt="Python" src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white"/> 
-<img alt="Jupyter Notebook" src="https://img.shields.io/badge/Jupyter-F37626.svg?&style=for-the-badge&logo=Jupyter&logoColor=white"/> 
-<img alt="HTML" src="https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white"/> 
-<img alt="CSS" src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white"/> 
-<img alt="BootStrap" src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white"/> 
-<img alt="Flask" src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/> 
-<img alt="Heroku" src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white"/> 
-
-*****
-
-<div align="center">
-<h4>Application UI</h4>
-</div>
-
-<div align="center">
-<p>Home Page</p>
-</div>
-
-
-<img src="https://github.com/Aniket11007/Heart_Disease_prediction-WebApp/blob/main/Heart-Disease-Prediction-main/Screenshots/Home.png" alt="alt text"/> 
-
-***** 
-
-<div align="center">
-<p>Form Details</p>
-</div>
-
-<img src="https://github.com/Aniket11007/Heart_Disease_prediction-WebApp/blob/main/Heart-Disease-Prediction-main/Screenshots/input_form.png" alt="alt text"/> 
-
-*****
-<div align="center">
-<p>Prediction Result- Person with Heart Disease</p>
-</div>
-
-<img src="https://github.com/Aniket11007/Heart_Disease_prediction-WebApp/blob/main/Heart-Disease-Prediction-main/Screenshots/result_with_heart_disease.png" alt="alt text"/> 
-
-
-***
-<div align="center">
-<p>Prediction Result- Person Who don't have Heart Disease</p>
-</div>
-
-<img src="https://github.com/Aniket11007/Heart_Disease_prediction-WebApp/blob/main/Heart-Disease-Prediction-main/Screenshots/result_without_heart_disease.png" alt="alt text"/> 
-
-
-***
 ## Steps to Run the Website on your System:
--Fork the repository
-- Clone or download the repo.
-- Open command prompt in the downloaded folder.
-- Create a virtual environment.
+1. Download and extract the project zip file.
+2. Download and install pgadmin. Also, setup username and password.
+3. Create database in postgres.
+4. Navigate to project repository in terminal.
+5. Create virtual environment using below command.
 ```
-virtualenv environment_name
+python –m venv venv
 ```
-- Activate the New Environment
+6. Activate virtual environment using below command.
 ```
-source environment_name/bin/activate
+venv/Scripts/activate
 ```
-- Install the Dependencies.
+7. Install requirements using below command.
 ```
-pip install -r requirements.txt
+pip install –r requirements.txt
 ```
-- Run the Flask App.
+8. Generate encryption key using below command.
+```
+python helper/generate_encryption_key.py
+```
+9. Create .env file in project and add these values.
+```
+POSTGRES_USERNAME
+POSTGRES_PASSWORD
+POSTGRES_HOST
+POSTGRES_PORT
+POSTGRES_DATABASE
+SECRET_KEY=llm
+ENCRYPTION_KEY=<encryption key generated in previous step>
+PROJECT_PATH=<project whole path>
+```
+10. Populate database using below command.
+```
+python helper/populate_data_to_db.py
+```
+11. Run the application using below command.
 ```
 python app.py
 ```
-
-If You like ❤ the project ,Please ⭐ This Repository .
+12. The application will run in port 5000 in localhost.
+https://127.0.0.1:5000/
